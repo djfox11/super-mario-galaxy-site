@@ -1,0 +1,24 @@
+/* ── FONTS ───────────────────────────────────────────── */
+@font-face {
+    font-family: "PopHappiness";
+    src: url("/fonts/fot-pophappiness.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ICTAvantGrande-Med";
+    src: url("/fonts/ITCAvantGardePro-Md.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "ICTAvantGrande-Bold";
+    src: url("/fonts/ITCAvantGardePro-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}

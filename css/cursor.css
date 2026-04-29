@@ -1,0 +1,74 @@
+body {
+    cursor: none;
+}
+
+button,
+a,
+[role="button"] {
+    cursor: none !important;
+}
+
+.cursor-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    cursor: none;
+    z-index: 9999;
+}
+
+.cursor-container img {
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.cursor-main {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 2;
+    will-change: transform, opacity;
+}
+
+.cursor-main.hidden-cursor {
+    opacity: 0 !important;
+}
+
+.cursor-main.duplicated {
+    opacity: 1 !important;
+}
+
+.cursor-shadow {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    z-index: 1;
+    opacity: 0.2;
+    will-change: transform, opacity;
+}
+
+.cursor-trail {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform, opacity, filter;
+}
+
+@media (pointer: coarse) {
+    body {
+        cursor: auto;
+    }
+
+    .cursor-container {
+        display: none;
+    }
+
+    button,
+    a,
+    [role="button"] {
+        cursor: pointer;
+    }
+}
