@@ -50,13 +50,6 @@ body {
     font-family: "PopHappiness";
 }
 
-.galaxy-scale {
-    transform: scale(0.75);
-    transform-origin: top center;
-    width: calc(100% / 0.75);
-
-}
-
 .page {
     min-height: 100vh;
     display: grid;
@@ -84,6 +77,10 @@ body {
     background-image: url("../images/galaxies/hub/gateway-bg.png");
 }
 
+.page--trial {
+    background-image: url("../images/galaxies/hub/trial-bg.png");
+}
+
 .galaxy-list {
     display: grid;
     gap: 22px;
@@ -96,12 +93,7 @@ body {
     overflow: hidden;
     border-radius: var(--card-radius);
     background: var(--card-background);
-
-    /*
-        No outside border and no outside drop shadow.
-        This draws the blue border inside the card.
-    */
-    box-shadow: inset 0 0 0 var(--card-border-size) var(--card-border-colour);
+    transition: transform 0.1s ease-in-out;
 }
 
 /* Keeps the inset border visually above the artwork */
@@ -113,6 +105,11 @@ body {
     border-radius: inherit;
     box-shadow: inset 0 0 0 var(--card-border-size) var(--card-border-colour);
     pointer-events: none;
+}
+
+.galaxy-card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 /* Right-side artwork, faded left into the white card */
@@ -191,8 +188,8 @@ body {
     color: var(--title-colour);
     font-size: var(--title-size);
     line-height: 1;
-    font-weight: 900;
-    letter-spacing: 1.5px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 
 }
 

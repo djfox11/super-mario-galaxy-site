@@ -5,6 +5,34 @@
 
 /* ── PAGE LOCK ───────────────────────────────────────── */
 .page-galaxies {
+    --card-width: 840px;
+    --card-height: 112.5px;
+    --card-radius: 28.5px;
+    --card-background: #ffffff;
+    --image-width: 487.5px;
+    --image-inset-right: 0px;
+    --image-inset-top: 0px;
+    --image-inset-bottom: 0px;
+    --image-fade-start: 0%;
+    --image-fade-mid: 21%;
+    --image-solid-start: 39%;
+    --content-left: 34.5px;
+    --title-top: 18px;
+    --title-size: 28.5px;
+    --title-colour: #424747;
+    --divider-left: 27px;
+    --divider-top: 54px;
+    --divider-width: 75%;
+    --divider-dot-size: 1.5px;
+    --divider-dot-gap: 9px;
+    --divider-colour: #b3b6b5;
+    --icon-row-top: 66px;
+    --icon-size: 39px;
+    --icon-gap: 6.75px;
+    --badge-size: 0px;
+    --badge-right: 10.5px;
+    --badge-bottom: 10.5px;
+
     height: 100vh;
     overflow: hidden;
 }
@@ -16,6 +44,42 @@
     height: 100vh;
     overflow: hidden;
     background: #00123c;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.45s ease;
+}
+
+.universe-map[data-active-hub="gateway"] {
+    background-image:
+        linear-gradient(rgba(0, 12, 48, 0.42), rgba(0, 12, 48, 0.62)),
+        url("/images/galaxies/hub/gateway-bg.png");
+}
+
+.universe-map[data-active-hub="terrace"] {
+    background-image:
+        linear-gradient(rgba(0, 12, 48, 0.42), rgba(0, 12, 48, 0.62)),
+        url("/images/galaxies/hub/terrace-bg.png");
+}
+
+.universe-map[data-active-hub="fountain"],
+.universe-map[data-active-hub="bedroom"],
+.universe-map[data-active-hub="engineroom"] {
+    background-image:
+        linear-gradient(rgba(0, 12, 48, 0.42), rgba(0, 12, 48, 0.62)),
+        url("/images/galaxies/hub/fountain-bg.png");
+}
+
+.universe-map[data-active-hub="kitchen"],
+.universe-map[data-active-hub="garden"] {
+    background-image:
+        linear-gradient(rgba(0, 12, 48, 0.42), rgba(0, 12, 48, 0.62)),
+        url("/images/galaxies/hub/kitchen-bg.png");
+}
+
+.universe-map[data-active-hub="trial"] {
+    background-image:
+        linear-gradient(rgba(0, 12, 48, 0.42), rgba(0, 12, 48, 0.62)),
+        url("/images/galaxies/hub/trial-bg.png");
 }
 
 /* Subtle radial atmosphere */
@@ -150,6 +214,13 @@
     transition: opacity 0.5s ease;
 }
 
+.umv-rings-svg ellipse {
+    fill: none;
+    stroke: rgba(120, 220, 255, 0.15);
+    stroke-width: 0.15;
+    vector-effect: non-scaling-stroke;
+}
+
 .universe-map.is-detail .umv-rings-svg {
     opacity: 0;
 }
@@ -219,7 +290,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: min(78vw, 78vh);
+    width: min(82vw, 82vh);
     aspect-ratio: 1 / 1;
     transform: translate(-50%, -50%);
     z-index: 10;
@@ -236,7 +307,7 @@
         transform 0.5s  cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Selected hub flies to centre */
+/* Selected hub flies to the detail title position */
 .hub-node.is-selected {
     transform:
         translate(-50%, -50%)
@@ -261,12 +332,14 @@
     transition: opacity 0.3s ease;
 }
 
-.hub-node:nth-child(4) .hub-pulse { animation-delay: 0.0s; }
-.hub-node:nth-child(5) .hub-pulse { animation-delay: 0.4s; }
-.hub-node:nth-child(6) .hub-pulse { animation-delay: 0.8s; }
-.hub-node:nth-child(7) .hub-pulse { animation-delay: 1.2s; }
-.hub-node:nth-child(8) .hub-pulse { animation-delay: 1.6s; }
-.hub-node:nth-child(9) .hub-pulse { animation-delay: 2.0s; }
+.hub-node:nth-child(1) .hub-pulse { animation-delay: 0.0s; }
+.hub-node:nth-child(2) .hub-pulse { animation-delay: 0.3s; }
+.hub-node:nth-child(3) .hub-pulse { animation-delay: 0.6s; }
+.hub-node:nth-child(4) .hub-pulse { animation-delay: 0.9s; }
+.hub-node:nth-child(5) .hub-pulse { animation-delay: 1.2s; }
+.hub-node:nth-child(6) .hub-pulse { animation-delay: 1.5s; }
+.hub-node:nth-child(7) .hub-pulse { animation-delay: 1.8s; }
+.hub-node:nth-child(8) .hub-pulse { animation-delay: 2.1s; }
 
 .universe-map.is-detail .hub-pulse { opacity: 0; }
 
@@ -323,6 +396,15 @@
     filter: drop-shadow(0 0 12px rgba(120, 220, 255, 0.7));
 }
 
+.hub-node[data-hub="gateway"] .hub-circle img,
+.hub-node[data-hub="trial"] .hub-circle img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    image-rendering: auto;
+}
+
 /* Selected dome — bigger, glowing in hub colour */
 .hub-node.is-selected .hub-circle {
     width: 130px;
@@ -341,6 +423,12 @@
     filter:
         drop-shadow(0 0 10px var(--hc, #4ec9ff))
         drop-shadow(0 0 22px rgba(120, 220, 255, 0.45));
+}
+
+.hub-node.is-selected[data-hub="gateway"] .hub-circle img,
+.hub-node.is-selected[data-hub="trial"] .hub-circle img {
+    width: 116px;
+    height: 116px;
 }
 
 @keyframes selectedDomeGlow {
@@ -394,162 +482,211 @@
 }
 
 /* ═══════════════════════════════════════════════════════
-   GALAXY PANELS — circular orbit, CSS sin/cos positioning
+   GALAXY CARDS
    ═══════════════════════════════════════════════════════ */
 .galaxy-panel {
     position: absolute;
     inset: 0;
-    z-index: 9;
-    pointer-events: none;
-    --orbit-r: 31vmin;
-}
-
-.galaxy-btn {
-    position: absolute;
-    left: calc(50% + cos(var(--angle, 0deg)) * var(--orbit-r));
-    top:  calc(50% + sin(var(--angle, 0deg)) * var(--orbit-r));
-    transform: translate(-50%, -50%);
-
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    pointer-events: all;
-}
-
-/* 6 children, 60° apart, starting at top (−90°) clockwise */
-.galaxy-panel .galaxy-btn:nth-child(1) { --angle: -90deg; }
-.galaxy-panel .galaxy-btn:nth-child(2) { --angle: -30deg; }
-.galaxy-panel .galaxy-btn:nth-child(3) { --angle:  30deg; }
-.galaxy-panel .galaxy-btn:nth-child(4) { --angle:  90deg; }
-.galaxy-panel .galaxy-btn:nth-child(5) { --angle: 150deg; }
-.galaxy-panel .galaxy-btn:nth-child(6) { --angle: 210deg; }
-
-/* ── BOUNCE-IN WRAPPER ───────────────────────────────── */
-.galaxy-btn-inner {
-    display: block;
-    opacity: 0;
-    transform: scale(0.2);
-    transition:
-        opacity   0.25s ease,
-        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transition-delay: 0s; /* instant out by default */
-}
-
-/* Bounce in sequentially when panel is active */
-.galaxy-panel.is-active .galaxy-btn-inner          { opacity: 1; transform: scale(1); }
-.galaxy-panel.is-active .galaxy-btn:nth-child(1) .galaxy-btn-inner { transition-delay: 0.35s; }
-.galaxy-panel.is-active .galaxy-btn:nth-child(2) .galaxy-btn-inner { transition-delay: 0.45s; }
-.galaxy-panel.is-active .galaxy-btn:nth-child(3) .galaxy-btn-inner { transition-delay: 0.55s; }
-.galaxy-panel.is-active .galaxy-btn:nth-child(4) .galaxy-btn-inner { transition-delay: 0.65s; }
-.galaxy-panel.is-active .galaxy-btn:nth-child(5) .galaxy-btn-inner { transition-delay: 0.75s; }
-.galaxy-panel.is-active .galaxy-btn:nth-child(6) .galaxy-btn-inner { transition-delay: 0.85s; }
-
-/* Hide inactive panels */
-.galaxy-panel:not(.is-active) .galaxy-btn { pointer-events: none; }
-
-/* ═══════════════════════════════════════════════════════
-   AQUA BUTTON — sized & styled for the galaxy orbit
-   ═══════════════════════════════════════════════════════ */
-.aqua-button {
-    --w: 610px;
-    --h: 220px;
-    --outer-stroke:       linear-gradient(180deg, #09f8fb 25%, #0975cd 100%);
-    --inner-stroke:       linear-gradient(180deg, #09f8fb 25%, #0975cd 100%);
-    --inner-stroke-hover: linear-gradient(180deg, #0975cd 0%,  #09f8fb 75%);
-    --fill:               linear-gradient(180deg, #ffffff 30%, #e5feff 65%, #8fa5bc 100%);
-    --fill-hover:         linear-gradient(180deg, #8fa5bc 0%,  #e5feff 35%, #ffffff 75%);
-
-    width: var(--w);
-    height: var(--h);
-    border: 0;
-    padding: 0;
-    border-radius: 999px;
-    position: relative;
-    cursor: pointer;
-    background: var(--outer-stroke);
-    overflow: hidden;
-    font-family: inherit;
-    transition: transform 0.15s ease-in-out;
-}
-
-.aqua-button::before {
-    content: "";
-    position: absolute;
-    inset: 6px;
-    border-radius: inherit;
-    background: #ffffff;
-    z-index: 1;
-}
-
-.aqua-button::after {
-    content: "";
-    position: absolute;
-    inset: 8px;
-    border-radius: inherit;
-    background: var(--inner-stroke);
-    z-index: 2;
-}
-
-.aqua-button span {
-    position: absolute;
-    inset: 13px;
-    border-radius: inherit;
-    z-index: 3;
-
+    z-index: 20;
     display: grid;
-    place-items: center;
-
-    background: var(--fill);
-    box-shadow:
-        inset 0 18px 28px rgba(255, 255, 255, 0.75),
-        inset 0 -22px 34px rgba(25, 112, 155, 0.22);
-
-    color: #4f5054;
-    font-family: "PopHappiness", serif; /* matched to loaded font name */
-    letter-spacing: 0.04em;
+    align-items: start;
+    justify-items: center;
+    padding: 210px 24px 40px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(18px);
+    transition:
+        opacity 0.35s ease 0.18s,
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.18s;
 }
 
-.aqua-button:hover::after {
-    background: var(--inner-stroke-hover);
+.galaxy-panel.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
-.aqua-button:hover span {
-    background: var(--fill-hover);
-    box-shadow:
-        inset 0 18px 28px rgba(255, 255, 255, 0.70),
-        inset 0 -12px 24px rgba(255, 255, 255, 0.35),
-        inset 0 18px 30px rgba(45, 95, 125, 0.22);
-    color: #09060a;
+.galaxy-list {
+    display: grid;
+    gap: 22px;
+    width: min(var(--card-width), calc(100vw - 32px));
+    padding-bottom: 24px;
 }
 
-.aqua-button:hover {
-    transform: scale(1.1);
+.galaxy-card {
+    position: relative;
+    width: 100%;
+    height: var(--card-height);
+    overflow: hidden;
+    border-radius: var(--card-radius);
+    background: var(--card-background);
+    color: inherit;
+    text-decoration: none;
+    transform: translateZ(0);
+    transition:
+        transform 0.14s ease-in-out,
+        filter 0.14s ease-in-out;
 }
 
-/* ── Orbit-scoped size overrides ─────────────────────── */
-.galaxy-panel .aqua-button {
-    --w: clamp(190px, 27vmin, 280px);
-    --h: clamp(70px, 10vmin, 100px);
+.galaxy-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 2px rgba(0, 140, 210, 0.35);
+    pointer-events: none;
 }
 
-.galaxy-panel .aqua-button::before { inset: 3px; }
-.galaxy-panel .aqua-button::after  { inset: 4px; }
+.galaxy-card:hover,
+.galaxy-card:focus-visible {
+    transform: scale(1.035);
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+}
 
-.galaxy-panel .aqua-button span {
-    inset: 6px;
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
-    text-align: center;
-    padding: 0 12px;
-    line-height: 1.15;
-    white-space: normal; /* allow long names to wrap */
+.galaxy-card:focus-visible {
+    outline: 3px solid rgba(120, 220, 255, 0.95);
+    outline-offset: 5px;
+}
+
+.galaxy-art {
+    position: absolute;
+    z-index: 2;
+    top: var(--image-inset-top);
+    right: var(--image-inset-right);
+    bottom: var(--image-inset-bottom);
+    width: var(--image-width);
+    overflow: hidden;
+    border-radius: 0 calc(var(--card-radius) - 8px) calc(var(--card-radius) - 8px) 0;
+    -webkit-mask-image:
+        linear-gradient(
+            90deg,
+            transparent var(--image-fade-start),
+            rgba(0, 0, 0, 0.35) var(--image-fade-mid),
+            #000 var(--image-solid-start)
+        );
+    mask-image:
+        linear-gradient(
+            90deg,
+            transparent var(--image-fade-start),
+            rgba(0, 0, 0, 0.35) var(--image-fade-mid),
+            #000 var(--image-solid-start)
+        );
+    isolation: isolate;
+}
+
+.galaxy-art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+}
+
+.galaxy-art img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center right;
+}
+
+.galaxy-divider {
+    position: absolute;
+    z-index: 1;
+    left: var(--divider-left);
+    top: var(--divider-top);
+    width: var(--divider-width);
+    height: 8px;
+    background-image:
+        radial-gradient(
+            circle,
+            var(--divider-colour) 0 var(--divider-dot-size),
+            transparent calc(var(--divider-dot-size) + 1px)
+        );
+    background-size: var(--divider-dot-gap) 8px;
+    background-repeat: repeat-x;
+}
+
+.galaxy-content {
+    position: relative;
+    z-index: 4;
+    height: 100%;
+    padding-left: var(--content-left);
+    padding-top: var(--title-top);
+}
+
+.galaxy-title {
+    margin: 0;
+    max-width: 640px;
+    color: var(--title-colour);
+    font-family: "PopHappiness", serif;
+    font-size: var(--title-size);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.galaxy-icons {
+    position: absolute;
+    left: var(--content-left);
+    top: var(--icon-row-top);
+    display: flex;
+    align-items: center;
+    gap: var(--icon-gap);
+}
+
+.icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.32));
+}
+
+.collectible-badge {
+    position: absolute;
+    z-index: 5;
+    right: var(--badge-right);
+    bottom: var(--badge-bottom);
+    width: var(--badge-size);
+    height: var(--badge-size);
+}
+
+.collectible-badge img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.35));
+    user-select: none;
+    pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════════
    MOBILE
    ═══════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+    .page-galaxies {
+        --card-height: 160px;
+        --card-radius: 30px;
+        --content-left: 30px;
+        --title-top: 30px;
+        --title-size: 26px;
+        --divider-left: 28px;
+        --divider-top: 78px;
+        --icon-row-top: 98px;
+        --icon-size: 40px;
+        --image-width: 58%;
+        --badge-size: 48px;
+        --badge-right: 18px;
+        --badge-bottom: 20px;
+    }
+
     .umv-header  { top: 18px; left: 20px; }
     .umv-title   { font-size: 1.4rem; }
     .umv-eyebrow { font-size: 0.58rem; }
@@ -564,19 +701,22 @@
 
     .umv-back { top: 16px; left: 16px; padding: 7px 14px; font-size: 0.62rem; }
 
-    .galaxy-panel { --orbit-r: 36vmin; }
+    .galaxy-panel { padding-top: 180px; }
 
-    .galaxy-panel .aqua-button {
-        --w: clamp(130px, 32vmin, 200px);
-        --h: clamp(48px, 11.5vmin, 76px);
+    .galaxy-title { max-width: 370px; }
+}
+
+@media (max-width: 520px) {
+    .page-galaxies {
+        --title-size: 22px;
+        --content-left: 22px;
+        --divider-left: 22px;
+        --icon-size: 32px;
+        --icon-gap: 4px;
+        --image-width: 52%;
     }
 
-    .galaxy-panel .aqua-button::before { inset: 2px; }
-    .galaxy-panel .aqua-button::after  { inset: 3px; }
-
-    .galaxy-panel .aqua-button span {
-        inset: 5px;
-        font-size: clamp(0.7rem, 2.6vmin, 0.95rem);
-        padding: 0 8px;
-    }
+    .hub-orbit { width: min(92vw, 76vh); }
+    .hub-label { font-size: 0.56rem; }
+    .galaxy-list { width: calc(100vw - 24px); }
 }
