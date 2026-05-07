@@ -53,15 +53,43 @@ body {
 }
 
 .page {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
     min-height: 100vh;
     display: grid;
     place-items: center;
     padding: 28px;
-    background-size: cover;        /* fills entire screen */
-    background-position: center;   /* keeps it centered when cropping */
-    background-repeat: no-repeat;  /* prevents tiling */
-    background-attachment: fixed;  /* optional: makes it stay in place on scroll */
-    transition: background-image 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.page::before,
+.page::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: var(--hub-background);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.page::before {
+    transform: scale(1);
+}
+
+.page::after {
+    z-index: 0;
+    opacity: 0;
+    background-image: var(--hub-background-next, var(--hub-background));
+    transition: opacity 0.36s ease;
+    will-change: opacity;
+}
+
+.page.is-transitioning::after {
+    opacity: 1;
 }
 
 .page--terrace {
@@ -85,10 +113,57 @@ body {
 }
 
 .galaxy-list {
+    position: relative;
+    z-index: 1;
     display: grid;
     gap: 22px;
-    transform: translateX(clamp(-180px, -10vw, -70px));
-    transition: transform 0.18s ease-in-out;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+        opacity 0.18s ease,
+        transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.galaxy-list.is-leaving {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+}
+
+.galaxy-list.is-entering .galaxy-card {
+    animation: galaxyCardIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.galaxy-list.is-entering .galaxy-card:nth-child(2) {
+    animation-delay: 0.035s;
+}
+
+.galaxy-list.is-entering .galaxy-card:nth-child(3) {
+    animation-delay: 0.07s;
+}
+
+.galaxy-list.is-entering .galaxy-card:nth-child(4) {
+    animation-delay: 0.105s;
+}
+
+.galaxy-list.is-entering .galaxy-card:nth-child(5) {
+    animation-delay: 0.14s;
+}
+
+.galaxy-list.is-entering .galaxy-card:nth-child(6) {
+    animation-delay: 0.175s;
+}
+
+@keyframes galaxyCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(-14px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .galaxy-card {
@@ -363,14 +438,18 @@ body {
 .hub-switcher {
     position: fixed;
     z-index: 5000;
-    left: 21px;
-    top: 132px;
+    right: 21px;
+    top: 18px;
+    bottom: 18px;
     display: grid;
-    gap: 12px;
+    justify-items: end;
+    align-content: center;
+    gap: 16px;
+    padding: 4px;
 }
 
 .hub-button {
-    --s: 0.42;
+    --s: 0.44;
 
     --size: calc(190px * var(--s));
     --outer-stroke: linear-gradient(180deg, #09f8fb 25%, #0975cd 100%);
@@ -382,13 +461,17 @@ body {
     position: relative;
     width: var(--size);
     height: var(--size);
+    overflow: visible;
     padding: 0;
     border: 0;
     border-radius: 999px;
     background: var(--outer-stroke);
     cursor: pointer;
     isolation: isolate;
-    transition: transform .15s ease-in-out, filter .15s ease-in-out;
+    box-shadow: none;
+    transition:
+        transform .15s ease-in-out,
+        box-shadow .15s ease-in-out;
 }
 
 .hub-button::before {
@@ -421,13 +504,21 @@ body {
 }
 
 .hub-button img {
-    width: 76%;
-    height: 76%;
+    width: 52%;
+    height: 52%;
     display: block;
     object-fit: contain;
+    object-position: center center;
+    margin: auto;
     filter: drop-shadow(0 3px 1px rgba(0, 0, 0, 0.35));
     pointer-events: none;
     user-select: none;
+}
+
+.hub-button[data-hub="gateway"] img,
+.hub-button[data-hub="trial"] img {
+    width: 56%;
+    height: 56%;
 }
 
 .hub-button:hover,
@@ -446,18 +537,49 @@ body {
 }
 
 .hub-button[aria-pressed="true"] {
-    filter: drop-shadow(0 0 10px rgba(9, 248, 251, 0.7));
+    box-shadow:
+        0 0 0 2px rgba(9, 248, 251, 0.78),
+        0 0 18px 5px rgba(9, 248, 251, 0.58);
+}
+
+.hub-button__label {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 12px);
+    z-index: 4;
+    min-width: 128px;
+    transform: translateY(-50%) scale(0.9);
+    transform-origin: right center;
+    color: rgba(214, 218, 218, 0.56);
+    font-family: "PopHappiness";
+    font-size: 21px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: right;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+    pointer-events: none;
+    transition:
+        color .15s ease-in-out,
+        transform .15s ease-in-out,
+        text-shadow .15s ease-in-out;
+}
+
+.hub-button:hover .hub-button__label {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.hub-button[aria-pressed="true"] .hub-button__label {
+    color: #ffffff;
+    transform: translateY(-50%) scale(1);
+    text-shadow:
+        0 2px 2px rgba(0, 0, 0, 0.48),
+        0 0 12px rgba(9, 248, 251, 0.75);
 }
 
 .hub-button:focus-visible {
     outline: 3px solid #ffffff;
     outline-offset: 4px;
-}
-
-@media (max-width: 980px) {
-    .galaxy-list {
-        transform: translateX(-36px);
-    }
 }
 
 @media (max-width: 760px) {
@@ -469,7 +591,6 @@ body {
 
     .galaxy-list {
         width: 100%;
-        transform: none;
     }
 
     .hub-switcher {
@@ -480,6 +601,8 @@ body {
         display: flex;
         gap: 8px;
         overflow-x: auto;
+        overflow-y: hidden;
+        max-height: none;
         padding: 4px;
         scrollbar-width: none;
     }
@@ -489,8 +612,34 @@ body {
     }
 
     .hub-button {
-        --s: 0.34;
+        --s: 0.38;
         flex: 0 0 auto;
+    }
+
+    .hub-button__label {
+        display: none;
+    }
+}
+
+@media (max-height: 760px) and (min-width: 761px) {
+    .hub-switcher {
+        gap: 5px;
+    }
+
+    .hub-button {
+        --s: 0.41;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page::after,
+    .galaxy-list,
+    .galaxy-list.is-entering .galaxy-card,
+    .hub-button,
+    .aqua-button,
+    .galaxy-card {
+        animation: none;
+        transition: none;
     }
 }
 

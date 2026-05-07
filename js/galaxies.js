@@ -3,7 +3,8 @@ const iconPaths = {
     powerstar: "/images/ui/powerstar.png",
     prankstercomet: "/images/ui/prankstercomet.png",
     greencomet: "/images/ui/greencomet.png",
-    cometMedal: "/images/ui/cometmedal.png"
+    cometMedal: "/images/ui/cometmedal.png",
+    redstar: "/images/ui/redstar.png"
 };
 
 const iconLabels = {
@@ -11,14 +12,16 @@ const iconLabels = {
     powerstar: "Power Star",
     prankstercomet: "Prankster Comet",
     greencomet: "Green Comet",
-    cometMedal: "Comet Medal"
+    cometMedal: "Comet Medal",
+    redstar: "Red Star"
 };
 
 const leftIconPriority = [
     "grandstar",
     "powerstar",
     "prankstercomet",
-    "greencomet"
+    "greencomet",
+    "redstar"
 ];
 
 const hubs = [
@@ -283,14 +286,14 @@ const hubs = [
     {
         id: "gateway",
         label: "Gateway",
-        icon: "/images/galaxies/gateway.png",
+        icon: "/images/galaxies/hub/gateway.png",
         background: "/images/galaxies/hub/gateway-bg.png",
         galaxies: [
             {
                 title: "Gateway Galaxy",
                 image: "/images/galaxies/gateway.png",
                 href: "/galaxies/00-observatory/01-gateway.html",
-                icons: ["grandstar", "powerstar"]
+                icons: ["grandstar", "redstar"]
             },
             {
                 title: "Bowser's Galaxy Reactor",
@@ -309,7 +312,7 @@ const hubs = [
     {
         id: "trial",
         label: "Planet of Trials",
-        icon: "/images/galaxies/rollinggizmo.png",
+        icon: "/images/galaxies/hub/trials.png",
         background: "/images/galaxies/hub/trial-bg.png",
         galaxies: [
             {
@@ -343,6 +346,9 @@ const hubs = [
 const page = document.querySelector("#hubPage");
 const galaxyList = document.querySelector("#galaxyList");
 const hubSwitcher = document.querySelector("#hubSwitcher");
+let activeHubId = "";
+let transitionTimer = 0;
+let settleTimer = 0;
 
 function renderHubButtons(activeHubId) {
     hubSwitcher.innerHTML = "";
@@ -359,6 +365,7 @@ function renderHubButtons(activeHubId) {
             <span class="hub-button__body">
                 <img src="${hub.icon}" alt="" draggable="false">
             </span>
+            <span class="hub-button__label">${escapeHtml(hub.label)}</span>
         `;
 
         button.addEventListener("click", () => selectHub(hub.id));
@@ -400,18 +407,52 @@ function renderGalaxies(items) {
     }
 }
 
-function selectHub(hubId, shouldUpdateHash = true) {
+function setHubBackground(background) {
+    page.style.setProperty("--hub-background", `url("${background}")`);
+    page.style.setProperty("--hub-background-next", `url("${background}")`);
+}
+
+function selectHub(hubId, shouldUpdateHash = true, shouldAnimate = true) {
     const hub = hubs.find(item => item.id === hubId) || hubs[0];
 
+    if (hub.id === activeHubId) return;
+
+    window.clearTimeout(transitionTimer);
+    window.clearTimeout(settleTimer);
+
     page.dataset.hub = hub.id;
-    page.style.backgroundImage = `url("${hub.background}")`;
+    page.style.setProperty("--hub-background-next", `url("${hub.background}")`);
+    page.classList.toggle("is-transitioning", shouldAnimate);
 
     renderHubButtons(hub.id);
-    renderGalaxies(hub.galaxies);
 
     if (shouldUpdateHash) {
         history.replaceState(null, "", `#${hub.id}`);
     }
+
+    const swapGalaxies = () => {
+        renderGalaxies(hub.galaxies);
+        galaxyList.classList.remove("is-leaving");
+        galaxyList.classList.add("is-entering");
+
+        transitionTimer = window.setTimeout(() => {
+            galaxyList.classList.remove("is-entering");
+        }, 620);
+    };
+
+    if (shouldAnimate && activeHubId) {
+        galaxyList.classList.add("is-leaving");
+        transitionTimer = window.setTimeout(swapGalaxies, 170);
+    } else {
+        swapGalaxies();
+    }
+
+    settleTimer = window.setTimeout(() => {
+        setHubBackground(hub.background);
+        page.classList.remove("is-transitioning");
+    }, shouldAnimate ? 420 : 0);
+
+    activeHubId = hub.id;
 }
 
 function renderLeftIcons(icons) {
@@ -482,5 +523,7 @@ function escapeHtml(value) {
 }
 
 const initialHub = location.hash.slice(1) || hubs[0].id;
+const initialHubData = hubs.find(item => item.id === initialHub) || hubs[0];
 
-selectHub(initialHub, false);
+setHubBackground(initialHubData.background);
+selectHub(initialHubData.id, false, false);
