@@ -349,6 +349,79 @@ const hubSwitcher = document.querySelector("#hubSwitcher");
 let activeHubId = "";
 let transitionTimer = 0;
 let settleTimer = 0;
+let selectionRequestId = 0;
+const imagePreloadCache = new Map();
+
+function preloadImage(src) {
+    if (!src) return Promise.resolve();
+
+    if (imagePreloadCache.has(src)) {
+        return imagePreloadCache.get(src);
+    }
+
+    const image = new Image();
+    image.decoding = "async";
+    image.src = src;
+
+    const promise = image.decode
+        ? image.decode().catch(() => {})
+        : new Promise(resolve => {
+            image.onload = resolve;
+            image.onerror = resolve;
+        });
+
+    imagePreloadCache.set(src, promise);
+    return promise;
+}
+
+function getFullGalaxyImage(galaxy) {
+    return galaxy.image.replace(/\.png$/, "-full.png");
+}
+
+function preloadHubAssets(hub) {
+    return Promise.all([
+        preloadImage(hub.background),
+        preloadImage(hub.icon),
+        ...hub.galaxies.map(galaxy => preloadImage(galaxy.image))
+    ]);
+}
+
+function warmInterfaceIcons() {
+    for (const src of Object.values(iconPaths)) {
+        preloadImage(src);
+    }
+
+    for (const hub of hubs) {
+        preloadImage(hub.icon);
+    }
+}
+
+function warmGalaxyPageImages(hub) {
+    for (const galaxy of hub.galaxies) {
+        preloadImage(getFullGalaxyImage(galaxy));
+    }
+}
+
+function warmRemainingAssets(activeHub) {
+    const warm = () => {
+        for (const hub of hubs) {
+            if (hub !== activeHub) {
+                preloadImage(hub.background);
+            }
+
+            for (const galaxy of hub.galaxies) {
+                preloadImage(galaxy.image);
+                preloadImage(getFullGalaxyImage(galaxy));
+            }
+        }
+    };
+
+    if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(warm, { timeout: 1600 });
+    } else {
+        window.setTimeout(warm, 350);
+    }
+}
 
 function renderHubButtons(activeHubId) {
     hubSwitcher.innerHTML = "";
@@ -363,7 +436,7 @@ function renderHubButtons(activeHubId) {
 
         button.innerHTML = `
             <span class="hub-button__body">
-                <img src="${hub.icon}" alt="" draggable="false">
+                <img src="${hub.icon}" alt="" draggable="false" decoding="async" loading="eager">
             </span>
             <span class="hub-button__label">${escapeHtml(hub.label)}</span>
         `;
@@ -388,7 +461,7 @@ function renderGalaxies(items) {
             <div class="galaxy-divider" aria-hidden="true"></div>
 
             <div class="galaxy-art" aria-hidden="true">
-                <img src="${galaxy.image}" alt="">
+                <img src="${galaxy.image}" alt="" decoding="async" loading="eager">
             </div>
 
             <div class="galaxy-content">
@@ -417,20 +490,28 @@ function selectHub(hubId, shouldUpdateHash = true, shouldAnimate = true) {
 
     if (hub.id === activeHubId) return;
 
+    const previousHubId = activeHubId;
+    const requestId = ++selectionRequestId;
+
     window.clearTimeout(transitionTimer);
     window.clearTimeout(settleTimer);
 
     page.dataset.hub = hub.id;
-    page.style.setProperty("--hub-background-next", `url("${hub.background}")`);
-    page.classList.toggle("is-transitioning", shouldAnimate);
-
     renderHubButtons(hub.id);
 
     if (shouldUpdateHash) {
         history.replaceState(null, "", `#${hub.id}`);
     }
 
+    if (shouldAnimate && previousHubId) {
+        galaxyList.classList.add("is-leaving");
+    }
+
+    preloadHubAssets(hub);
+
     const swapGalaxies = () => {
+        if (requestId !== selectionRequestId) return;
+
         renderGalaxies(hub.galaxies);
         galaxyList.classList.remove("is-leaving");
         galaxyList.classList.add("is-entering");
@@ -440,19 +521,29 @@ function selectHub(hubId, shouldUpdateHash = true, shouldAnimate = true) {
         }, 620);
     };
 
-    if (shouldAnimate && activeHubId) {
-        galaxyList.classList.add("is-leaving");
+    const transitionBackground = () => {
+        if (requestId !== selectionRequestId) return;
+
+        page.style.setProperty("--hub-background-next", `url("${hub.background}")`);
+        page.classList.toggle("is-transitioning", shouldAnimate && Boolean(previousHubId));
+
+        settleTimer = window.setTimeout(() => {
+            setHubBackground(hub.background);
+            page.classList.remove("is-transitioning");
+        }, shouldAnimate && previousHubId ? 420 : 0);
+    };
+
+    if (shouldAnimate && previousHubId) {
         transitionTimer = window.setTimeout(swapGalaxies, 170);
     } else {
         swapGalaxies();
     }
 
-    settleTimer = window.setTimeout(() => {
-        setHubBackground(hub.background);
-        page.classList.remove("is-transitioning");
-    }, shouldAnimate ? 420 : 0);
+    preloadImage(hub.background).then(transitionBackground);
 
     activeHubId = hub.id;
+    warmGalaxyPageImages(hub);
+    warmRemainingAssets(hub);
 }
 
 function renderLeftIcons(icons) {
@@ -493,6 +584,8 @@ function imageIcon(iconType) {
             class="icon"
             src="${src}"
             alt="${label}"
+            decoding="async"
+            loading="eager"
             draggable="false"
         >
     `;
@@ -525,5 +618,6 @@ function escapeHtml(value) {
 const initialHub = location.hash.slice(1) || hubs[0].id;
 const initialHubData = hubs.find(item => item.id === initialHub) || hubs[0];
 
+warmInterfaceIcons();
 setHubBackground(initialHubData.background);
 selectHub(initialHubData.id, false, false);

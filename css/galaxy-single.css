@@ -1,0 +1,211 @@
+﻿html {
+    background: #000;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background: black;
+    position: relative;
+    isolation: isolate;
+}
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background-image: var(--galaxy-bg);
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(6px) brightness(0.55);
+
+    transform: scale(1.08);
+
+    z-index: 0;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    z-index: 1;
+}
+
+.page--goodegg {
+    --galaxy-bg: url("/images/galaxies/goodegg-full.png");
+}
+
+.page--honeyhive {
+    --galaxy-bg: url("/images/galaxies/honeyhive-full.png");
+}
+
+.page--loopdeeloop {
+    --galaxy-bg: url("/images/galaxies/loopdeeloop-full.png");
+}
+
+.page--flipswitch {
+    --galaxy-bg: url("/images/galaxies/flipswitch-full.png");
+}
+
+.page--robotreactor {
+    --galaxy-bg: url("/images/galaxies/robotreactor-full.png");
+}
+
+.page--sweetsweet {
+    --galaxy-bg: url("/images/galaxies/sweetsweet-full.png");
+}
+
+.page--spacejunk {
+    --galaxy-bg: url("/images/galaxies/spacejunk-full.png");
+}
+
+.page--rollinggreen {
+    --galaxy-bg: url("/images/galaxies/rollinggreen-full.png");
+}
+
+.page--battlerock {
+    --galaxy-bg: url("/images/galaxies/battlerock-full.png");
+}
+
+.page--hurryscurry {
+    --galaxy-bg: url("/images/galaxies/hurryscurry-full.png");
+}
+
+.page--starreactor {
+    --galaxy-bg: url("/images/galaxies/starreactor-full.png");
+}
+
+.page--slingpod {
+    --galaxy-bg: url("/images/galaxies/slingpod-full.png");
+}
+
+.page--beachbowl {
+    --galaxy-bg: url("/images/galaxies/beachbowl-full.png");
+}
+
+.page--bubblebreeze {
+    --galaxy-bg: url("/images/galaxies/bubblebreeze-full.png");
+}
+
+.page--ghostly {
+    --galaxy-bg: url("/images/galaxies/ghostly-full.png");
+}
+
+.page--buoybase {
+    --galaxy-bg: url("/images/galaxies/buoybase-full.png");
+}
+
+.page--airshiparmada {
+    --galaxy-bg: url("/images/galaxies/airshiparmada-full.png");
+}
+
+.page--dripdrop {
+    --galaxy-bg: url("/images/galaxies/dripdrop-full.png");
+}
+
+.page--gustygarden {
+    --galaxy-bg: url("/images/galaxies/gustygarden-full.png");
+}
+
+.page--freezeflame {
+    --galaxy-bg: url("/images/galaxies/freezeflame-full.png");
+}
+
+.page--dustydune {
+    --galaxy-bg: url("/images/galaxies/dustydune-full.png");
+}
+
+.page--honeyclimb {
+    --galaxy-bg: url("/images/galaxies/honeyclimb-full.png");
+}
+
+.page--darkmatterplanet {
+    --galaxy-bg: url("/images/galaxies/darkmatterplanet-full.png");
+}
+
+.page--bigmouth {
+    --galaxy-bg: url("/images/galaxies/bigmouth-full.png");
+}
+
+.page--goldleaf {
+    --galaxy-bg: url("/images/galaxies/goldleaf-full.png");
+}
+
+.page--seaslide {
+    --galaxy-bg: url("/images/galaxies/seaslide-full.png");
+}
+
+.page--toytime {
+    --galaxy-bg: url("/images/galaxies/toytime-full.png");
+}
+
+.page--bonefin {
+    --galaxy-bg: url("/images/galaxies/bonefin-full.png");
+}
+
+.page--lavareactor {
+    --galaxy-bg: url("/images/galaxies/lavareactor-full.png");
+}
+
+.page--sandspiral {
+    --galaxy-bg: url("/images/galaxies/sandspiral-full.png");
+}
+
+.page--deepdark {
+    --galaxy-bg: url("/images/galaxies/deepdark-full.png");
+}
+
+.page--dreadnought {
+    --galaxy-bg: url("/images/galaxies/dreadnought-full.png");
+}
+
+.page--mattersplatter {
+    --galaxy-bg: url("/images/galaxies/mattersplatter-full.png");
+}
+
+.page--meltymolten {
+    --galaxy-bg: url("/images/galaxies/meltymolten-full.png");
+}
+
+.page--snowcap {
+    --galaxy-bg: url("/images/galaxies/snowcap-full.png");
+}
+
+.page--gateway {
+    --galaxy-bg: url("/images/galaxies/gateway-full.png");
+}
+
+.page--galaxyreactor {
+    --galaxy-bg: url("/images/galaxies/galaxyreactor-full.png");
+}
+
+.page--boosboneyard {
+    --galaxy-bg: url("/images/galaxies/boosboneyard-full.png");
+}
+
+.page--rollinggizmo {
+    --galaxy-bg: url("/images/galaxies/rollinggizmo-full.png");
+}
+
+.page--bubbleblast {
+    --galaxy-bg: url("/images/galaxies/bubbleblast-full.png");
+}
+
+.page--loopdeeswoop {
+    --galaxy-bg: url("/images/galaxies/loopdeeswoop-full.png");
+}
+
+.page--grandfinale {
+    --galaxy-bg: url("/images/galaxies/grandfinale-full.png");
+}
+
+

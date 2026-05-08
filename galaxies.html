@@ -5,8 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galaxies | Super Mario Galaxy</title>
+    <style>
+        html,
+        body {
+            background: #02030a;
+        }
+    </style>
+    <link rel="preload" as="image" href="/images/galaxies/hub/terrace-bg.png" fetchpriority="high">
     <link rel="stylesheet" href="/css/galaxies.css">
     <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/cursor.css">
 </head>
 
 <body>
@@ -25,7 +33,14 @@
         <div class="galaxy-list" id="galaxyList" aria-label="Galaxy cards"></div>
     </main>
 
+    <div class="cursor-container" id="cursorContainer">
+        <img class="cursor-main" id="cursorMain" src="/images/cursor/cursor.svg" alt="" />
+        <img class="cursor-main hidden-cursor" id="cursorDuplicate" src="/images/cursor/cursor.svg" alt="" />
+        <img class="cursor-shadow" id="cursorShadow" src="/images/cursor/cursor-shadow.webp" alt="" />
+    </div>
+
     <script src="/js/galaxies.js"></script>
+    <script src="/js/cursor.js"></script>
 </body>
 
 </html>
