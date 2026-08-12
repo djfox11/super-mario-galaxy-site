@@ -19,7 +19,7 @@ const trailEls = [];
 for (let i = 0; i < POSITIONS_LENGTH; i++) {
     const img = document.createElement("img");
     img.className = "cursor-trail";
-    img.src = "images/cursor/cursor-trail.webp";
+    img.src = "/images/cursor/cursor-trail.webp";
     img.alt = "";
     cursorContainer.appendChild(img);
     trailEls.push(img);

@@ -1,29 +1,156 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>01 Beach Bowl</title>
-    <style>
-        html,
-        body {
-            background: #000;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the missions, enemies, and secrets of Beach Bowl Galaxy.">
+    <title>Beach Bowl Galaxy | Super Mario Galaxy</title>
     <link rel="preload" as="image" href="/images/galaxies/beachbowl-full.png" fetchpriority="high">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/galaxies.css">
-  <link rel="stylesheet" href="/css/galaxy-single.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/galaxy-single.css">
+    <link rel="stylesheet" href="/css/cursor.css">
 </head>
-<body class="page--beachbowl">
-    <a class="aqua-button" href="/galaxies.html#kitchen">
+<body class="galaxy-page galaxy-page--detail" style="--galaxy-background: url('/images/galaxies/beachbowl-full.png');">
+    <a class="aqua-button" href="/galaxies.html#kitchen" aria-label="Back to the Kitchen galaxies">
         <span class="aqua-button__body">
             <img class="aqua-icon aqua-icon--left" src="/images/icons/back-icon.svg" alt="">
             <img class="aqua-icon aqua-icon--middle" src="/images/icons/button-icon.svg" alt="">
             <span class="aqua-button__text">Back</span>
         </span>
     </a>
+
+    <main class="galaxy-detail">
+        <header class="galaxy-hero">
+            <div class="galaxy-hero__copy">
+                <p class="galaxy-dome">Kitchen</p>
+                <h1>Beach Bowl Galaxy</h1>
+                <p class="galaxy-tagline">A penguin paradise among the stars.</p>
+            </div>
+        </header>
+
+        <div class="galaxy-sections">
+            <section class="info-panel overview-panel" aria-labelledby="overview-title">
+                <div class="overview-copy">
+                    <h2 id="overview-title">Galaxy Overview</h2>
+                    <p>A tropical water world of hidden caves, swimming trials and gravity-defying ruins.</p>
+                </div>
+
+                <div class="galaxy-stats">
+                    <div class="stat-card">
+                        <div class="stat-card__value">
+                            <img src="/images/ui/powerstar.png" alt="">
+                            <strong>6</strong>
+                        </div>
+                        <h3>Power Stars</h3>
+                        <p>Six missions to master</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">
+                            <img src="/images/ui/prankstercomet.png" alt="">
+                            <strong>2</strong>
+                        </div>
+                        <h3>Prankster Comets</h3>
+                        <p>Fast Foe and Purple</p>
+                    </div>
+                    <div class="stat-card stat-card--no-boss">
+                        <div class="stat-card__value">
+                            <span class="no-boss-icon" aria-hidden="true">
+                                <img src="/images/characters/bosses/bowser.png" alt="">
+                            </span>
+                        </div>
+                        <h3>No Boss Battle</h3>
+                        <p>Exploration focused</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value">
+                            <span class="unlock-icon" aria-hidden="true">
+                                <img src="/images/ui/powerstar.png" alt="">
+                            </span>
+                            <strong>16</strong>
+                        </div>
+                        <h3>Unlocks at 16 Stars</h3>
+                        <p>Inside the Kitchen dome</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-panel enemies-panel" aria-labelledby="enemies-title">
+                <h2 id="enemies-title">Common Enemies</h2>
+                <ul class="enemy-list">
+                    <li class="enemy-card">
+                        <span class="enemy-card__portrait"><img src="/images/characters/enemies/urchin.png" alt=""></span>
+                        <span>Urchin</span>
+                    </li>
+                    <li class="enemy-card">
+                        <span class="enemy-card__portrait"><img src="/images/characters/enemies/gringill.png" alt=""></span>
+                        <span>Gringill</span>
+                    </li>
+                    <li class="enemy-card">
+                        <span class="enemy-card__portrait"><img src="/images/characters/enemies/goomba.png" alt=""></span>
+                        <span>Goomba</span>
+                    </li>
+                    <li class="enemy-card">
+                        <span class="enemy-card__portrait enemy-card__portrait--multiply"><img src="/images/characters/enemies/thwomp.png" alt=""></span>
+                        <span>Thwomp</span>
+                    </li>
+                    <li class="enemy-card">
+                        <span class="enemy-card__portrait"><img src="/images/characters/enemies/tox-box.png" alt=""></span>
+                        <span>Tox Box</span>
+                    </li>
+                    <li class="enemy-card">
+                        <span class="enemy-card__portrait"><img src="/images/characters/enemies/cataquack.png" alt=""></span>
+                        <span>Cataquack</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="info-panel missions-panel" aria-labelledby="missions-title">
+                <h2 id="missions-title">Missions <span aria-hidden="true">•</span> 6 Power Stars</h2>
+                <ol class="mission-list">
+                    <li class="mission-card">
+                        <img src="/images/ui/powerstar.png" alt="">
+                        <span class="mission-card__number">01</span>
+                        <span class="mission-card__name">Sunken Treasure</span>
+                    </li>
+                    <li class="mission-card">
+                        <img src="/images/ui/powerstar.png" alt="">
+                        <span class="mission-card__number">02</span>
+                        <span class="mission-card__name">Passing the Swim Test</span>
+                    </li>
+                    <li class="mission-card">
+                        <img src="/images/ui/powerstar.png" alt="">
+                        <span class="mission-card__number">03</span>
+                        <span class="mission-card__name">The Secret Undersea Cavern</span>
+                    </li>
+                    <li class="mission-card">
+                        <img src="/images/ui/powerstar.png" alt="">
+                        <span class="mission-card__number">04</span>
+                        <span class="mission-card__name">Fast Foes on the Cyclone Stone</span>
+                        <span class="mission-badge mission-badge--comet">Comet</span>
+                    </li>
+                    <li class="mission-card">
+                        <img src="/images/ui/powerstar.png" alt="">
+                        <span class="mission-card__number">05</span>
+                        <span class="mission-card__name">Beachcombing for Purple Coins</span>
+                        <span class="mission-badge mission-badge--comet">Comet</span>
+                    </li>
+                    <li class="mission-card">
+                        <img src="/images/ui/powerstar.png" alt="">
+                        <span class="mission-card__number">06</span>
+                        <span class="mission-card__name">Wall Jumping up Waterfalls</span>
+                        <span class="mission-badge mission-badge--hidden">Hidden</span>
+                    </li>
+                </ol>
+            </section>
+        </div>
+    </main>
+
+    <div class="cursor-container" id="cursorContainer" aria-hidden="true">
+        <img class="cursor-main" id="cursorMain" src="/images/cursor/cursor.svg" alt="">
+        <img class="cursor-main hidden-cursor" id="cursorDuplicate" src="/images/cursor/cursor.svg" alt="">
+        <img class="cursor-shadow" id="cursorShadow" src="/images/cursor/cursor-shadow.webp" alt="">
+    </div>
+
+    <script src="/js/cursor.js"></script>
 </body>
 </html>
-
-
