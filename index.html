@@ -8,7 +8,7 @@
         content="Explore the story, characters, galaxies, power-ups, enemies and music of Super Mario Galaxy.">
     <title>Super Mario Galaxy | Universe Guide</title>
 
-    <link rel="preload" as="image" href="/images/general/smg-outer-space-bg.png" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/general/main.png" fetchpriority="high">
     <link rel="preload" as="image" href="/images/general/smg-logo.png">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/home.css">
@@ -16,116 +16,120 @@
 </head>
 
 <body class="home-page">
-    <header class="mission-header">
+    <a class="skip-link" href="#destinations">Skip to destinations</a>
+
+    <div class="cosmic-atmosphere" aria-hidden="true">
+        <span class="star-streak star-streak--one"></span>
+        <span class="star-streak star-streak--two"></span>
+        <span class="star-streak star-streak--three"></span>
+    </div>
+
+    <header class="home-header">
         <a class="site-brand" href="/" aria-label="Super Mario Galaxy Universe Guide home">
             <img src="/images/general/smg-logo.png" alt="Super Mario Galaxy">
         </a>
 
-        <div class="mission-heading">
-            <h1>Select a destination</h1>
-        </div>
-    </header>
-
-    <main class="destination-stage">
-        <div class="orbit-field orbit-field--back" aria-hidden="true">
-            <div class="orbit orbit--outer"></div>
-            <div class="orbit orbit--middle"></div>
-            <div class="orbit orbit--inner"></div>
-        </div>
-
-        <div class="stage-art" aria-hidden="true">
-            <div class="stage-art__glow"></div>
-            <img src="/images/general/comet-observatory.png" alt="" draggable="false">
-        </div>
-
-        <div class="orbit-field orbit-field--front" aria-hidden="true">
-            <div class="orbit orbit--outer"></div>
-            <div class="orbit orbit--middle"></div>
-            <div class="orbit orbit--inner"></div>
-        </div>
-
-        <nav class="destination-list" aria-label="Explore the universe guide">
-            <a class="destination-card destination-card" href="/galaxies.html" data-destination>
-                <span class="destination-card__button">
-                    <span class="destination-card__media">
-                        <img src="https://placehold.co/128x128" alt="" draggable="false">
-                    </span>
-                </span>
-                <span class="destination-card__copy">
-                    <strong>Galaxies</strong>
-                </span>
-            </a>
-
-            <a class="destination-card" href="/story.html" data-destination>
-                <span class="destination-card__button">
-                    <span class="destination-card__media">
-                        <img src="https://placehold.co/128x128" alt="" draggable="false">
-                    </span>
-                </span>
-                <span class="destination-card__copy">
-                    <strong>Story</strong>
-                </span>
-            </a>
-
-            <a class="destination-card" href="/characters.html" data-destination>
-                <span class="destination-card__button">
-                    <span class="destination-card__media">
-                        <img src="https://placehold.co/128x128" alt="" draggable="false">
-                    </span>
-                </span>
-                <span class="destination-card__copy">
-                    <strong>Characters</strong>
-                </span>
-            </a>
-
-            <a class="destination-card" href="/power-ups.html" data-destination>
-                <span class="destination-card__button">
-                    <span class="destination-card__media">
-                        <img src="https://placehold.co/128x128" alt="" draggable="false">
-                    </span>
-                </span>
-                <span class="destination-card__copy">
-                    <strong>Power-Ups</strong>
-                </span>
-            </a>
-
-            <a class="destination-card" href="/enemies.html" data-destination>
-                <span class="destination-card__button">
-                    <span class="destination-card__media">
-                        <img src="https://placehold.co/128x128" alt="" draggable="false">
-                    </span>
-                </span>
-                <span class="destination-card__copy">
-                    <strong>Enemies</strong>
-                </span>
-            </a>
-
-            <a class="destination-card" href="/soundtrack.html" data-destination>
-                <span class="destination-card__button">
-                    <span class="destination-card__media">
-                        <img src="https://placehold.co/128x128" alt="" draggable="false">
-                    </span>
-                </span>
-                <span class="destination-card__copy">
-                    <strong>Soundtrack</strong>
-                </span>
-            </a>
-        </nav>
-    </main>
-
-    <footer class="mission-footer">
-        <nav class="utility-links" aria-label="Project links">
+        <nav class="utility-nav" aria-label="Project links">
             <a href="/about.html">
-                <span class="utility-links__icon" aria-hidden="true"><img src="/images/general/SMG2_Starbit.png"></span>
+                <span class="utility-nav__icon utility-nav__icon--star" aria-hidden="true">
+                    <img src="/images/general/SMG2_Starbit.png" alt="">
+                </span>
                 <span>About</span>
             </a>
             <a href="/contact.html">
-                <span class="utility-links__icon" aria-hidden="true"><img
-                        src="/images/general/SMG_Asset_Sprite_UI_Mail.png"></span>
+                <span class="utility-nav__icon" aria-hidden="true">
+                    <img src="/images/general/SMG_Asset_Sprite_UI_Mail.png" alt="">
+                </span>
                 <span>Contact</span>
             </a>
         </nav>
-    </footer>
+    </header>
+
+    <main class="home-main">
+        <section class="guide-panel" aria-labelledby="page-title">
+            <div class="guide-panel__heading">
+                <p class="guide-kicker">
+                    <img src="/images/general/SMG2_Starbit.png" alt="" aria-hidden="true">
+                    <span>Universe Guide</span>
+                </p>
+                <h1 id="page-title">Choose a destination</h1>
+                <p class="guide-intro">Chart a course through the worlds, heroes and sounds of the Star Festival.</p>
+            </div>
+
+            <nav class="destination-grid" id="destinations" aria-label="Explore the universe guide">
+                <a class="destination-card destination-card--galaxies" href="/galaxies.html" data-destination>
+                    <span class="destination-card__icon">
+                        <img src="/images/general/dest_galaxies.png" alt="" draggable="false">
+                    </span>
+                    <span class="destination-card__copy">
+                        <strong>Galaxies</strong>
+                        <small>Explore every dome</small>
+                    </span>
+                    <span class="destination-card__arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a class="destination-card destination-card--story" href="/story.html" data-destination>
+                    <span class="destination-card__icon">
+                        <img src="/images/general/dest_story.png" alt="" draggable="false">
+                    </span>
+                    <span class="destination-card__copy">
+                        <strong>Story</strong>
+                        <small>Begin the journey</small>
+                    </span>
+                    <span class="destination-card__arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a class="destination-card destination-card--characters" href="/characters.html" data-destination>
+                    <span class="destination-card__icon">
+                        <img src="/images/general/dest_characters.png" alt="" draggable="false">
+                    </span>
+                    <span class="destination-card__copy">
+                        <strong>Characters</strong>
+                        <small>Meet the star crew</small>
+                    </span>
+                    <span class="destination-card__arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a class="destination-card destination-card--powerups" href="/power-ups.html" data-destination>
+                    <span class="destination-card__icon">
+                        <img src="/images/general/dest_powerups.webp" alt="" draggable="false">
+                    </span>
+                    <span class="destination-card__copy">
+                        <strong>Power-Ups</strong>
+                        <small>Suit up for launch</small>
+                    </span>
+                    <span class="destination-card__arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a class="destination-card destination-card--enemies" href="/enemies.html" data-destination>
+                    <span class="destination-card__icon">
+                        <img src="/images/general/dest_enemies.png" alt="" draggable="false">
+                    </span>
+                    <span class="destination-card__copy">
+                        <strong>Enemies</strong>
+                        <small>Face the fleet</small>
+                    </span>
+                    <span class="destination-card__arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a class="destination-card destination-card--soundtrack" href="/soundtrack.html" data-destination>
+                    <span class="destination-card__icon">
+                        <img src="/images/general/dest_soundtrack.png" alt="" draggable="false">
+                    </span>
+                    <span class="destination-card__copy">
+                        <strong>Soundtrack</strong>
+                        <small>Hear the stars</small>
+                    </span>
+                    <span class="destination-card__arrow" aria-hidden="true">›</span>
+                </a>
+            </nav>
+
+            <p class="selection-hint" aria-hidden="true">
+                <span class="selection-hint__star">✦</span>
+                Select a portal to begin
+            </p>
+        </section>
+    </main>
 
     <div class="cursor-container" id="cursorContainer" aria-hidden="true">
         <img class="cursor-main" id="cursorMain" src="/images/cursor/cursor.svg" alt="">
