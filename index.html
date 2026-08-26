@@ -4,132 +4,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Explore the story, characters, galaxies, power-ups, enemies and music of Super Mario Galaxy.">
-    <title>Super Mario Galaxy | Universe Guide</title>
+    <meta name="theme-color" content="#07173e">
+    <meta name="description" content="Explore the galaxies, story, characters, power-ups, soundtrack, and enemies of Super Mario Galaxy.">
+    <title>Super Mario Galaxy | Choose a Destination</title>
 
-    <link rel="preload" as="image" href="/images/general/main.png" fetchpriority="high">
-    <link rel="preload" as="image" href="/images/general/smg-logo.png">
+    <link rel="preload" as="image" href="/images/general/smg-outer-space-bg.png" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/general/smg-logo.png" fetchpriority="high">
+    <link rel="preload" as="fetch" href="/images/models/good-egg-planet/StarEggRoadEggPlanetALow.dae" crossorigin>
+
     <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/cursor.css">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.179.1/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 
-<body class="home-page">
-    <a class="skip-link" href="#destinations">Skip to destinations</a>
+<body>
+    <a class="skip-link" href="#mainContent">Skip to destinations</a>
 
-    <div class="cosmic-atmosphere" aria-hidden="true">
-        <span class="star-streak star-streak--one"></span>
-        <span class="star-streak star-streak--two"></span>
-        <span class="star-streak star-streak--three"></span>
+    <div class="cosmos" aria-hidden="true">
+        <span class="cosmos__glow cosmos__glow--one"></span>
+        <span class="cosmos__glow cosmos__glow--two"></span>
+        <span class="cosmos__comet cosmos__comet--one"></span>
+        <span class="cosmos__comet cosmos__comet--two"></span>
     </div>
 
-    <header class="home-header">
-        <a class="site-brand" href="/" aria-label="Super Mario Galaxy Universe Guide home">
+    <header class="topbar">
+        <a class="brand" href="/index.html" aria-label="Super Mario Galaxy home">
             <img src="/images/general/smg-logo.png" alt="Super Mario Galaxy">
         </a>
 
-        <nav class="utility-nav" aria-label="Project links">
-            <a href="/about.html">
-                <span class="utility-nav__icon utility-nav__icon--star" aria-hidden="true">
-                    <img src="/images/general/SMG2_Starbit.png" alt="">
+        <nav class="utility-nav" aria-label="More information">
+            <a class="utility-button" href="/about.html">
+                <span class="utility-button__body">
+                    <img src="/images/general/icon_about.png" alt="">
+                    <span class="utility-button__text">About</span>
                 </span>
-                <span>About</span>
             </a>
-            <a href="/contact.html">
-                <span class="utility-nav__icon" aria-hidden="true">
-                    <img src="/images/general/SMG_Asset_Sprite_UI_Mail.png" alt="">
+            <a class="utility-button" href="/contact.html">
+                <span class="utility-button__body">
+                    <img src="/images/general/icon_contact.png" alt="">
+                    <span class="utility-button__text">Contact</span>
                 </span>
-                <span>Contact</span>
             </a>
         </nav>
     </header>
 
-    <main class="home-main">
-        <section class="guide-panel" aria-labelledby="page-title">
-            <div class="guide-panel__heading">
-                <p class="guide-kicker">
-                    <img src="/images/general/SMG2_Starbit.png" alt="" aria-hidden="true">
-                    <span>Universe Guide</span>
-                </p>
-                <h1 id="page-title">Choose a destination</h1>
-                <p class="guide-intro">Chart a course through the worlds, heroes and sounds of the Star Festival.</p>
+    <main class="file-select" id="mainContent">
+        <header class="file-select__intro">
+        </header>
+
+        <section class="selector-stage" aria-label="Main destinations">
+            <div class="webgl-core" id="planetCore">
+                <span class="orbit-ring orbit-ring--one" aria-hidden="true"></span>
+                <span class="orbit-ring orbit-ring--two" aria-hidden="true"></span>
+                <span class="orbit-ring orbit-ring--three" aria-hidden="true"></span>
+
+                <div class="model-viewport" id="planetViewport" aria-hidden="true">
+                    <img class="model-fallback" src="/images/general/comet-observatory.png" alt="">
+                </div>
+
+                <div class="model-badge">
+                    <span class="model-badge__star" aria-hidden="true"></span>
+                    <span>
+                        <small id="modelStatus"></small>
+                    </span>
+                </div>
             </div>
 
-            <nav class="destination-grid" id="destinations" aria-label="Explore the universe guide">
-                <a class="destination-card destination-card--galaxies" href="/galaxies.html" data-destination>
-                    <span class="destination-card__icon">
-                        <img src="/images/general/dest_galaxies.png" alt="" draggable="false">
-                    </span>
-                    <span class="destination-card__copy">
-                        <strong>Galaxies</strong>
-                        <small>Explore every dome</small>
-                    </span>
-                    <span class="destination-card__arrow" aria-hidden="true">›</span>
-                </a>
+            <ol class="destination-list">
+                <li class="destination destination--galaxies">
+                    <a class="file-card file-card--galaxies" href="/galaxies.html" data-destination
+                        data-description="Tour every dome and discover the galaxies held within.">
+                        <span class="file-card__number" aria-hidden="true">1</span>
+                        <span class="file-card__orb" aria-hidden="true">
+                            <span class="file-card__orb-body"></span>
+                        </span>
+                        <span class="file-card__label">Galaxies</span>
+                    </a>
+                </li>
 
-                <a class="destination-card destination-card--story" href="/story.html" data-destination>
-                    <span class="destination-card__icon">
-                        <img src="/images/general/dest_story.png" alt="" draggable="false">
-                    </span>
-                    <span class="destination-card__copy">
-                        <strong>Story</strong>
-                        <small>Begin the journey</small>
-                    </span>
-                    <span class="destination-card__arrow" aria-hidden="true">›</span>
-                </a>
+                <li class="destination destination--story">
+                    <a class="file-card file-card--story" href="/story.html" data-destination
+                        data-description="Follow Mario's voyage from the Star Festival to the centre of the universe.">
+                        <span class="file-card__number" aria-hidden="true">2</span>
+                        <span class="file-card__orb" aria-hidden="true">
+                            <span class="file-card__orb-body"></span>
+                        </span>
+                        <span class="file-card__label">Story</span>
+                    </a>
+                </li>
 
-                <a class="destination-card destination-card--characters" href="/characters.html" data-destination>
-                    <span class="destination-card__icon">
-                        <img src="/images/general/dest_characters.png" alt="" draggable="false">
-                    </span>
-                    <span class="destination-card__copy">
-                        <strong>Characters</strong>
-                        <small>Meet the star crew</small>
-                    </span>
-                    <span class="destination-card__arrow" aria-hidden="true">›</span>
-                </a>
+                <li class="destination destination--characters">
+                    <a class="file-card file-card--characters" href="/characters.html" data-destination
+                        data-description="Meet Mario, Rosalina, the Lumas, and friends across the cosmos.">
+                        <span class="file-card__number" aria-hidden="true">3</span>
+                        <span class="file-card__orb" aria-hidden="true">
+                            <span class="file-card__orb-body"></span>
+                        </span>
+                        <span class="file-card__label">Characters</span>
+                    </a>
+                </li>
 
-                <a class="destination-card destination-card--powerups" href="/power-ups.html" data-destination>
-                    <span class="destination-card__icon">
-                        <img src="/images/general/dest_powerups.webp" alt="" draggable="false">
-                    </span>
-                    <span class="destination-card__copy">
-                        <strong>Power-Ups</strong>
-                        <small>Suit up for launch</small>
-                    </span>
-                    <span class="destination-card__arrow" aria-hidden="true">›</span>
-                </a>
+                <li class="destination destination--powerups">
+                    <a class="file-card file-card--powerups" href="/power-ups.html" data-destination
+                        data-description="Discover the transformations that let Mario defy gravity.">
+                        <span class="file-card__number" aria-hidden="true">4</span>
+                        <span class="file-card__orb" aria-hidden="true">
+                            <span class="file-card__orb-body"></span>
+                        </span>
+                        <span class="file-card__label">Power-Ups</span>
+                    </a>
+                </li>
 
-                <a class="destination-card destination-card--enemies" href="/enemies.html" data-destination>
-                    <span class="destination-card__icon">
-                        <img src="/images/general/dest_enemies.png" alt="" draggable="false">
-                    </span>
-                    <span class="destination-card__copy">
-                        <strong>Enemies</strong>
-                        <small>Face the fleet</small>
-                    </span>
-                    <span class="destination-card__arrow" aria-hidden="true">›</span>
-                </a>
+                <li class="destination destination--soundtrack">
+                    <a class="file-card file-card--soundtrack" href="/soundtrack.html" data-destination
+                        data-description="Listen to the orchestral themes that give the galaxies their voice.">
+                        <span class="file-card__number" aria-hidden="true">5</span>
+                        <span class="file-card__orb" aria-hidden="true">
+                            <span class="file-card__orb-body"></span>
+                        </span>
+                        <span class="file-card__label">Soundtrack</span>
+                    </a>
+                </li>
 
-                <a class="destination-card destination-card--soundtrack" href="/soundtrack.html" data-destination>
-                    <span class="destination-card__icon">
-                        <img src="/images/general/dest_soundtrack.png" alt="" draggable="false">
-                    </span>
-                    <span class="destination-card__copy">
-                        <strong>Soundtrack</strong>
-                        <small>Hear the stars</small>
-                    </span>
-                    <span class="destination-card__arrow" aria-hidden="true">›</span>
-                </a>
-            </nav>
-
-            <p class="selection-hint" aria-hidden="true">
-                <span class="selection-hint__star">✦</span>
-                Select a portal to begin
-            </p>
+                <li class="destination destination--enemies">
+                    <a class="file-card file-card--enemies" href="/enemies.html" data-destination
+                        data-description="Study the enemies and bosses waiting beyond the observatory.">
+                        <span class="file-card__number" aria-hidden="true">6</span>
+                        <span class="file-card__orb" aria-hidden="true">
+                            <span class="file-card__orb-body">
+                                <img src="/images/characters/bosses/bowser.png" alt="">
+                            </span>
+                        </span>
+                        <span class="file-card__label">Enemies</span>
+                    </a>
+                </li>
+            </ol>
         </section>
     </main>
+
+    <footer class="screen-footer">
+        <p id="selectionHint">Use the pointer or arrow keys to choose.</p>
+        <p>
+            Good Egg Planet model by Peardian via
+            <a href="https://www.models-resource.com/wii/supermariogalaxy/asset/306933/">The Models Resource</a>
+        </p>
+    </footer>
 
     <div class="cursor-container" id="cursorContainer" aria-hidden="true">
         <img class="cursor-main" id="cursorMain" src="/images/cursor/cursor.svg" alt="">
@@ -137,8 +166,416 @@
         <img class="cursor-shadow" id="cursorShadow" src="/images/cursor/cursor-shadow.webp" alt="">
     </div>
 
-    <script src="/js/home.js"></script>
     <script src="/js/cursor.js"></script>
+
+    <script type="module">
+        import * as THREE from "three";
+        import { ColladaLoader } from "three/addons/loaders/ColladaLoader.js";
+
+        const viewport = document.getElementById("planetViewport");
+        const modelStatus = document.getElementById("modelStatus");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        const materialRegisters = {
+            blinn1_v: {
+                ambient: [70, 135, 223],
+                material: [203, 203, 203],
+                konst: [7, 12, 6]
+            },
+            lambert4_v: {
+                ambient: [70, 135, 223],
+                material: [203, 203, 203],
+                konst: [0, 0, 0]
+            }
+        };
+
+        const registerVector = (values) => new THREE.Vector3(
+            values[0] / 255,
+            values[1] / 255,
+            values[2] / 255
+        );
+
+        const bakedShaderSettings = Object.freeze({
+            brightness: 1.60,
+            glowEdge: 0.66,
+            glowSoftness: 0.30,
+            glowIntensity: 0.70
+        });
+
+        const tevVertexShader = `
+            uniform vec3 uAmbientRegister;
+            uniform vec3 uMaterialRegister;
+            uniform vec3 uLightDirection0;
+            uniform vec3 uLightDirection1;
+
+            varying vec2 vUv;
+            varying vec3 vRasterColor;
+            varying float vFacing;
+
+            void main() {
+                vUv = uv;
+
+                vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
+                vec3 viewNormal = normalize(normalMatrix * normal);
+                vec3 viewDirection = normalize(-viewPosition.xyz);
+
+                float diffuse0 = max(dot(viewNormal, normalize(uLightDirection0)), 0.0);
+                float diffuse1 = max(dot(viewNormal, normalize(uLightDirection1)), 0.0);
+
+                // The DAE's COLOR0 stream is the authored GX raster colour. Keep the
+                // stored 8-bit response visible instead of replacing it with PBR light.
+                vec3 vertexChannel = vec3(1.0);
+                #if defined(USE_COLOR) || defined(USE_COLOR_ALPHA)
+                    vertexChannel = clamp(color.rgb, 0.0, 1.0);
+                #endif
+                vec3 authoredRaster = mix(vertexChannel, sqrt(vertexChannel), 0.58);
+                authoredRaster = mix(vec3(0.38), vec3(1.0), authoredRaster);
+
+                // SMG area lighting gently colours the raster channel without erasing
+                // its baked highlights and occlusion.
+                vec3 areaAmbient = mix(vec3(1.0), uAmbientRegister, 0.10);
+                vec3 direct = diffuse0 * vec3(0.15, 0.14, 0.12)
+                            + diffuse1 * vec3(0.04, 0.07, 0.13);
+                vRasterColor = clamp(authoredRaster * (areaAmbient + direct)
+                    * uMaterialRegister * 1.20, 0.0, 1.0);
+                // The source contains reversed winding on some surfaces, so use the
+                // absolute facing term to keep the silhouette mask winding-independent.
+                vFacing = clamp(abs(dot(viewNormal, viewDirection)), 0.0, 1.0);
+
+                gl_Position = projectionMatrix * viewPosition;
+            }
+        `;
+
+        const tevFragmentShader = `
+            uniform sampler2D uTexture;
+            uniform vec3 uKonstRegister;
+            uniform float uBrightness;
+            uniform float uGlowEdge;
+            uniform float uGlowSoftness;
+            uniform float uGlowIntensity;
+
+            varying vec2 vUv;
+            varying vec3 vRasterColor;
+            varying float vFacing;
+
+            void main() {
+                vec4 textureColor = texture2D(uTexture, vUv);
+
+                // Stage 0: TEXC -> PREV.
+                vec3 tevPrev = textureColor.rgb;
+                // Stage 1: PREV x RASC, matching a common GX_MODULATE setup.
+                tevPrev = clamp(tevPrev * vRasterColor, 0.0, 1.0);
+                // Stage 2: apply the material KONST register and exposure control.
+                tevPrev = clamp((tevPrev + uKonstRegister * 0.025) * uBrightness, 0.0, 1.0);
+
+                // Monochrome Fresnel mask: N dot V becomes a steep, adjustable edge.
+                float edgeSignal = 1.0 - clamp(vFacing, 0.0, 1.0);
+                float glowMask = smoothstep(
+                    uGlowEdge - uGlowSoftness,
+                    uGlowEdge + uGlowSoftness,
+                    edgeSignal
+                );
+
+                // Colour dodge keeps the texture hue while driving its edge toward white.
+                float dodgeAmount = min(glowMask * uGlowIntensity, 0.92);
+                tevPrev = clamp(tevPrev / max(vec3(1.0 - dodgeAmount), vec3(0.08)), 0.0, 1.0);
+
+                if (textureColor.a < 0.04) discard;
+                gl_FragColor = vec4(tevPrev, textureColor.a);
+            }
+        `;
+
+        function makeTevMaterial(sourceMaterial, fallbackTexture, hasVertexColor) {
+            const texture = sourceMaterial?.map || fallbackTexture;
+            const registers = materialRegisters[sourceMaterial?.name] || materialRegisters.blinn1_v;
+            texture.colorSpace = THREE.SRGBColorSpace;
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTexture: { value: texture },
+                    // These values come directly from the supplied materials.txt.
+                    uAmbientRegister: { value: registerVector(registers.ambient) },
+                    uMaterialRegister: { value: registerVector(registers.material) },
+                    uKonstRegister: { value: registerVector(registers.konst) },
+                    uLightDirection0: { value: new THREE.Vector3(0.4, 0.72, 0.58) },
+                    uLightDirection1: { value: new THREE.Vector3(-0.7, 0.15, 0.5) },
+                    uBrightness: { value: bakedShaderSettings.brightness },
+                    uGlowEdge: { value: bakedShaderSettings.glowEdge },
+                    uGlowSoftness: { value: bakedShaderSettings.glowSoftness },
+                    uGlowIntensity: { value: bakedShaderSettings.glowIntensity }
+                },
+                vertexShader: tevVertexShader,
+                fragmentShader: tevFragmentShader,
+                vertexColors: hasVertexColor,
+                side: THREE.DoubleSide,
+                transparent: Boolean(sourceMaterial?.transparent),
+                depthWrite: !sourceMaterial?.transparent
+            });
+
+            return material;
+        }
+
+        function computeSmoothVertexNormals(geometry) {
+            const position = geometry.getAttribute("position");
+            if (!position) return;
+
+            const normalArray = new Float32Array(position.count * 3);
+            const positionKeys = new Array(position.count);
+            const accumulatedNormals = new Map();
+            const pointA = new THREE.Vector3();
+            const pointB = new THREE.Vector3();
+            const pointC = new THREE.Vector3();
+            const edgeAB = new THREE.Vector3();
+            const edgeAC = new THREE.Vector3();
+            const faceNormal = new THREE.Vector3();
+
+            const keyForVertex = (index) => [
+                Math.round(position.getX(index) * 1000),
+                Math.round(position.getY(index) * 1000),
+                Math.round(position.getZ(index) * 1000)
+            ].join(":");
+
+            for (let index = 0; index < position.count; index += 1) {
+                const key = keyForVertex(index);
+                positionKeys[index] = key;
+                if (!accumulatedNormals.has(key)) {
+                    accumulatedNormals.set(key, new THREE.Vector3());
+                }
+            }
+
+            for (let index = 0; index < position.count; index += 3) {
+                pointA.fromBufferAttribute(position, index);
+                pointB.fromBufferAttribute(position, index + 1);
+                pointC.fromBufferAttribute(position, index + 2);
+                edgeAB.subVectors(pointB, pointA);
+                edgeAC.subVectors(pointC, pointA);
+                faceNormal.crossVectors(edgeAB, edgeAC);
+
+                accumulatedNormals.get(positionKeys[index]).add(faceNormal);
+                accumulatedNormals.get(positionKeys[index + 1]).add(faceNormal);
+                accumulatedNormals.get(positionKeys[index + 2]).add(faceNormal);
+            }
+
+            geometry.computeBoundingSphere();
+            const centre = geometry.boundingSphere.center;
+            const outward = new THREE.Vector3();
+
+            for (let index = 0; index < position.count; index += 1) {
+                const normal = accumulatedNormals.get(positionKeys[index]).normalize();
+                outward.fromBufferAttribute(position, index).sub(centre);
+
+                if (normal.lengthSq() === 0) normal.copy(outward).normalize();
+                if (normal.dot(outward) < 0) normal.negate();
+
+                normalArray[index * 3] = normal.x;
+                normalArray[index * 3 + 1] = normal.y;
+                normalArray[index * 3 + 2] = normal.z;
+            }
+
+            geometry.setAttribute("normal", new THREE.BufferAttribute(normalArray, 3));
+        }
+
+        function startPlanetViewer() {
+            let renderer;
+
+            try {
+                renderer = new THREE.WebGLRenderer({
+                    alpha: true,
+                    antialias: true,
+                    powerPreference: "high-performance"
+                });
+            } catch (error) {
+                viewport.classList.add("model-viewport--fallback");
+                modelStatus.textContent = "Static observatory view";
+                return;
+            }
+
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+            renderer.setClearColor(0x000000, 0);
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
+            viewport.prepend(renderer.domElement);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(31, 1, 0.1, 100);
+            camera.position.set(0, 0.08, 6.4);
+
+            const pivot = new THREE.Group();
+            pivot.rotation.set(-0.12, -0.35, -0.08);
+            scene.add(pivot);
+
+            const fallbackTexture = new THREE.DataTexture(
+                new Uint8Array([210, 218, 185, 255]),
+                1,
+                1,
+                THREE.RGBAFormat
+            );
+            fallbackTexture.needsUpdate = true;
+            fallbackTexture.colorSpace = THREE.SRGBColorSpace;
+
+            const loader = new ColladaLoader();
+            const modelPath = "/images/models/good-egg-planet/MiniEggStarGalaxy.dae";
+            let loadedModel = null;
+
+            loader.load(
+                modelPath,
+                (collada) => {
+                    loadedModel = collada.scene;
+
+                    loadedModel.traverse((object) => {
+                        if (!object.isMesh) return;
+
+                        if (!object.geometry.getAttribute("normal")) {
+                            computeSmoothVertexNormals(object.geometry);
+                        }
+
+                        const hasVertexColor = Boolean(object.geometry.getAttribute("color"));
+
+                        if (Array.isArray(object.material)) {
+                            object.material = object.material.map((material) =>
+                                makeTevMaterial(material, fallbackTexture, hasVertexColor)
+                            );
+                        } else {
+                            object.material = makeTevMaterial(object.material, fallbackTexture, hasVertexColor);
+                        }
+                    });
+
+                    const bounds = new THREE.Box3().setFromObject(loadedModel);
+                    const centre = bounds.getCenter(new THREE.Vector3());
+                    const size = bounds.getSize(new THREE.Vector3());
+                    const scale = 3.35 / Math.max(size.x, size.y, size.z);
+
+                    loadedModel.position.sub(centre);
+
+                    const normalisedModel = new THREE.Group();
+                    normalisedModel.scale.setScalar(scale);
+                    normalisedModel.rotation.set(0.08, -0.55, -0.18);
+                    normalisedModel.add(loadedModel);
+                    loadedModel = normalisedModel;
+                    pivot.add(loadedModel);
+
+                    viewport.classList.add("model-viewport--ready");
+                },
+                (event) => {
+                    if (!event.total) return;
+                    const percent = Math.round((event.loaded / event.total) * 100);
+                    modelStatus.textContent = `Loading archive model · ${percent}%`;
+                },
+                () => {
+                    viewport.classList.add("model-viewport--fallback");
+                    modelStatus.textContent = "Static observatory view";
+                }
+            );
+
+            const targetRotation = new THREE.Vector2(0, 0);
+            const currentRotation = new THREE.Vector2(0, 0);
+
+            viewport.addEventListener("pointermove", (event) => {
+                const rect = viewport.getBoundingClientRect();
+                targetRotation.x = ((event.clientX - rect.left) / rect.width - 0.5) * 0.42;
+                targetRotation.y = ((event.clientY - rect.top) / rect.height - 0.5) * 0.28;
+            });
+
+            viewport.addEventListener("pointerleave", () => targetRotation.set(0, 0));
+
+            function resize() {
+                const width = Math.max(viewport.clientWidth, 1);
+                const height = Math.max(viewport.clientHeight, 1);
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+
+            new ResizeObserver(resize).observe(viewport);
+            resize();
+
+            const clock = new THREE.Clock();
+
+            function render() {
+                const elapsed = clock.getElapsedTime();
+                currentRotation.lerp(targetRotation, 0.055);
+
+                pivot.rotation.y = -0.35 + currentRotation.x + (reduceMotion ? 0 : elapsed * 0.075);
+                pivot.rotation.x = -0.12 - currentRotation.y + (reduceMotion ? 0 : Math.sin(elapsed * 0.55) * 0.025);
+
+                if (loadedModel && !reduceMotion) {
+                    loadedModel.position.y = Math.sin(elapsed * 0.8) * 0.07;
+                }
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(render);
+            }
+
+            render();
+        }
+
+        startPlanetViewer();
+
+        const selectionHint = document.getElementById("selectionHint");
+        const destinations = document.querySelectorAll("[data-destination]");
+        const defaultHint = selectionHint.textContent;
+
+        destinations.forEach((destination) => {
+            const showDescription = () => {
+                selectionHint.textContent = destination.dataset.description;
+            };
+
+            destination.addEventListener("pointerenter", showDescription);
+            destination.addEventListener("focus", showDescription);
+            destination.addEventListener("pointerleave", () => selectionHint.textContent = defaultHint);
+            destination.addEventListener("blur", () => selectionHint.textContent = defaultHint);
+        });
+
+        const destinationGrid = Array.from(destinations);
+        const navigationKeys = new Set([
+            "ArrowLeft",
+            "ArrowRight",
+            "ArrowUp",
+            "ArrowDown",
+            "Home",
+            "End"
+        ]);
+
+        document.addEventListener("keydown", (event) => {
+            if (!navigationKeys.has(event.key)) return;
+
+            const eventTarget = event.target;
+            if (!(eventTarget instanceof Element)) return;
+            if (eventTarget.matches("input, select, textarea, button")) {
+                return;
+            }
+
+            const currentIndex = destinationGrid.indexOf(document.activeElement);
+            let nextIndex;
+
+            if (event.key === "Home") {
+                nextIndex = 0;
+            } else if (event.key === "End") {
+                nextIndex = destinationGrid.length - 1;
+            } else if (currentIndex === -1) {
+                nextIndex = event.key === "ArrowLeft" || event.key === "ArrowUp"
+                    ? destinationGrid.length - 1
+                    : 0;
+            } else {
+                const columnCount = 2;
+                const rowCount = Math.ceil(destinationGrid.length / columnCount);
+                const row = Math.floor(currentIndex / columnCount);
+                const column = currentIndex % columnCount;
+
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                    nextIndex = row * columnCount + ((column + 1) % columnCount);
+                } else {
+                    const rowOffset = event.key === "ArrowUp" ? -1 : 1;
+                    const nextRow = (row + rowOffset + rowCount) % rowCount;
+                    nextIndex = nextRow * columnCount + column;
+                }
+            }
+
+            event.preventDefault();
+            destinationGrid[nextIndex].focus();
+        });
+    </script>
 </body>
 
 </html>
