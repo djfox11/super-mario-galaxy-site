@@ -444,7 +444,7 @@
                     const bounds = new THREE.Box3().setFromObject(loadedModel);
                     const centre = bounds.getCenter(new THREE.Vector3());
                     const size = bounds.getSize(new THREE.Vector3());
-                    const scale = 3.35 / Math.max(size.x, size.y, size.z);
+                    const scale = 2.95 / Math.max(size.x, size.y, size.z);
 
                     loadedModel.position.sub(centre);
 

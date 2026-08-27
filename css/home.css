@@ -260,6 +260,37 @@ body {
     text-shadow: 2px 1px 0 rgba(161, 204, 206, 0.5);
 }
 
+/* The custom Star Pointer grows and lights up over every clickable link. */
+.cursor-container .cursor-main,
+.cursor-container .cursor-shadow {
+    transition:
+        width 120ms ease-out,
+        height 120ms ease-out,
+        margin 120ms ease-out,
+        filter 120ms ease-out;
+}
+
+body:has(a[href]:hover) .cursor-container .cursor-main {
+    width: 28px;
+    height: 28px;
+    margin-top: -14px;
+    margin-left: -14px;
+    filter:
+        drop-shadow(0 0 3px #fff)
+        drop-shadow(0 0 9px rgba(9, 248, 251, 0.98));
+}
+
+body:has(a[href]:hover) .cursor-container .cursor-shadow {
+    width: 66px;
+    height: 66px;
+    margin-top: -33px;
+    margin-left: -33px;
+    filter:
+        brightness(1.45)
+        saturate(1.25)
+        drop-shadow(0 0 12px rgba(9, 248, 251, 0.75));
+}
+
 .file-select {
     position: relative;
     z-index: 1;
@@ -320,13 +351,13 @@ body {
     width: min(1260px, calc(100vw - 32px));
     height: clamp(470px, calc(100svh - 270px), 640px);
     min-height: 470px;
-    margin: -4px auto 0;
+    margin: 18px auto 0;
 }
 
 .webgl-core {
     position: absolute;
     left: 50%;
-    top: 45%;
+    top: 48%;
     z-index: 2;
     width: clamp(310px, 34vw, 470px);
     aspect-ratio: 1;
@@ -402,7 +433,7 @@ body {
 
 .model-viewport {
     position: absolute;
-    inset: 7% 6% 12%;
+    inset: 2% 3% 6%;
     z-index: 2;
     border-radius: 50%;
     touch-action: none;
@@ -598,7 +629,6 @@ body {
     text-shadow:
         0 2px 0 #3c2103,
         0 3px 3px rgba(0, 0, 0, 0.58);
-    transform: rotate(-7deg);
     transition: border-color 180ms ease, transform 180ms ease;
 }
 
@@ -759,7 +789,7 @@ body {
 .file-card:hover .file-card__number,
 .file-card:focus-visible .file-card__number {
     border-color: var(--aqua);
-    transform: rotate(4deg) scale(1.08);
+    transform: scale(1.08);
 }
 
 .file-card:hover .file-card__label,
